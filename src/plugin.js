@@ -5,7 +5,8 @@ const defaults = {
   position: 'top-right',
   fadeTime: 3000,
   url: undefined,
-  image: undefined
+  image: undefined,
+  text: undefined
 };
 
 /**
@@ -19,11 +20,18 @@ const setupWatermark = (player, options) => {
   // Add a div and img tag
   const videoEl = player.el();
   const div = document.createElement('div');
-  const img = document.createElement('img');
+  const img = options.image ? document.createElement('img') : document.createElement('span') ;
 
   div.classList.add('vjs-watermark-content');
   div.classList.add(`vjs-watermark-${options.position}`);
-  img.src = options.image;
+
+  if(options.image) {
+    img.src = options.image;
+    console.log('hello txt1');
+  } else {
+    console.log('hello txt2');
+    img.textContent = options.text;
+  }
 
   // if a url is provided make the image link to that URL.
   if (options.url) {
